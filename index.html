@@ -186,16 +186,102 @@
   .meta-item dt { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
   .meta-item dd { margin: 4px 0 0; font-weight: 600; }
 
-  .dash-slot {
-    margin-block: 8px 40px; border: 2px dashed var(--accent); border-radius: 18px; background: var(--accent-soft);
-    min-height: 420px; display: grid; place-items: center; text-align: center; padding: 40px 24px;
+  /* ---------- Dashboard Huawei (prefijo .hd-) ---------- */
+  .hd { display: grid; gap: 18px; margin-block: 8px 48px; font-variant-numeric: tabular-nums; min-width: 0; }
+  .hd > * { min-width: 0; }
+  .hd-header {
+    background: var(--navy); color: #fff; border-radius: 18px; padding: 28px 30px;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 20px;
+    position: relative; overflow: hidden;
   }
-  .dash-slot-inner { display: grid; gap: 14px; justify-items: center; max-width: 30em; }
-  .dash-slot-icon { width: 64px; height: 64px; border-radius: 16px; background: var(--navy); color: var(--accent); display: grid; place-items: center; }
-  .dash-slot h2 { font-size: 24px; font-weight: 700; }
-  .dash-slot p { color: var(--muted); }
-  .dash-slot code { font-size: 13px; background: var(--bg); border: 1px solid var(--line); padding: 3px 8px; border-radius: 6px; color: var(--navy); }
-  .dash-host { margin-block: 8px 40px; overflow-x: auto; }
+  .hd-header::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
+  .hd-title { flex: 1 1 420px; min-width: 0; }
+  .hd-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  .hd-title h2 { font-size: clamp(22px, 2.6vw, 28px); font-weight: 700; margin-top: 6px; }
+  .hd-title p { font-size: 14px; color: rgba(255,255,255,.75); margin-top: 8px; max-width: 42em; line-height: 1.55; }
+  .hd-meta { display: grid; gap: 12px; justify-items: end; flex: 0 1 auto; }
+  .hd-badge { font-size: 12px; font-weight: 600; background: rgba(0,212,170,.16); color: var(--accent); padding: 5px 12px; border-radius: 999px; }
+  .hd-filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+  .hd-filter { display: grid; gap: 4px; font-size: 12px; color: rgba(255,255,255,.7); }
+  .hd-filter select {
+    font: inherit; font-size: 14px; color: #fff; background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 8px 10px; min-width: 96px; cursor: pointer;
+  }
+  .hd-filter select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,212,170,.25); }
+  .hd-filter option { color: var(--navy); background: #fff; }
+
+  .hd-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .hd-kpi { border: 1px solid var(--line); border-top: 4px solid var(--k); border-radius: var(--radius); padding: 20px 22px; background: var(--bg); display: flex; flex-direction: column; }
+  .hd-kpi-label { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .hd-kpi-name { font-size: 15px; font-weight: 600; margin-top: 2px; line-height: 1.35; }
+  .hd-kpi-value { display: flex; align-items: baseline; gap: 8px; margin-top: 14px; }
+  .hd-kpi-value strong { font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .hd-kpi-value span { font-size: 14px; color: var(--muted); }
+  .hd-kpi-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 12px; }
+  .hd-sem { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; color: #fff; }
+  .hd-sem.rojo { background: #d9362d; }
+  .hd-sem.amarillo { background: #e5a221; color: #3a2c00; }
+  .hd-sem.verde { background: #1f9d55; }
+  .hd-delta { font-size: 13px; color: var(--muted); }
+  .hd-delta.up { color: #1f7a48; }
+  .hd-delta.down { color: #b32d25; }
+  .hd-goal { font-size: 13px; color: var(--muted); margin-top: 14px; }
+  .hd-goal b { color: var(--navy); }
+  .hd-track { height: 8px; background: var(--surface); border-radius: 6px; margin-top: 8px; overflow: hidden; }
+  .hd-track div { height: 100%; border-radius: 6px; }
+  .hd-owner { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .hd-kpi .hd-owner { margin-top: 14px; }
+  .hd-owner span { opacity: .85; }
+  .hd-empty { color: var(--muted); padding: 20px; grid-column: 1 / -1; }
+
+  .hd-row { display: grid; gap: 18px; }
+  .hd-row-main { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .hd-row-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hd-panel { border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; background: var(--bg); min-width: 0; }
+  .hd-panel h3 { font-size: 15px; font-weight: 700; }
+  .hd-sub { font-size: 13px; color: var(--muted); margin: 4px 0 14px; line-height: 1.45; }
+  .hd-canvas { position: relative; height: 260px; }
+  .hd-canvas-lg { height: 340px; }
+
+  .hd-legend { display: grid; gap: 14px; margin-top: 12px; }
+  .hd-legend > div { display: flex; gap: 10px; align-items: flex-start; }
+  .hd-legend i { width: 12px; height: 12px; border-radius: 50%; flex: none; margin-top: 4px; }
+  .hd-legend p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .hd-legend b { color: var(--navy); }
+  .hd-alert { border-top: 1px dashed var(--line); padding-top: 14px; }
+  .hd-alert p { border-left: 3px solid #e5a221; padding-left: 10px; }
+
+  .hd-table-wrap { overflow: auto; max-height: 440px; border: 1px solid var(--line); border-radius: 10px; }
+  .hd-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .hd-table th {
+    position: sticky; top: 0; background: var(--surface); text-align: left; padding: 10px 12px; white-space: nowrap;
+    font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted);
+    border-bottom: 1px solid var(--line); cursor: pointer; user-select: none;
+  }
+  .hd-table th:hover, .hd-table th[aria-sort="ascending"], .hd-table th[aria-sort="descending"] { color: var(--navy); }
+  .hd-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .hd-table tbody tr:hover { background: var(--surface); }
+  .hd-pill { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: middle; }
+  .hd-foot { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.5; }
+
+  @media (max-width: 960px) {
+    .hd-row-main, .hd-row-3 { grid-template-columns: minmax(0, 1fr); }
+    .hd-meta { justify-items: start; }
+    .hd-filters { justify-content: flex-start; }
+  }
+  @media (max-width: 860px) {
+    .hd-kpis { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .hd-header { padding: 22px 20px; }
+    .hd-panel, .hd-kpi { padding: 18px 16px; }
+    .hd-canvas { height: 240px; }
+    .hd-canvas-lg { height: 300px; }
+    .hd-filters { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+    .hd-filter:last-child { grid-column: 1 / -1; }
+    .hd-filter select { width: 100%; }
+    .hd-meta { width: 100%; }
+  }
 
   .detail-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-bottom: 88px; }
   .detail-body h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
@@ -270,44 +356,290 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"></script>
 
 <script type="text/babel" data-presets="react">
 const { useState, useEffect } = React;
 
 /* =====================================================================
-   COMPONENTE DEL DASHBOARD
+   DASHBOARD · Alineamiento Dinámico (Huawei, 1987–2020)
    ---------------------------------------------------------------------
-   Pega aquí tu componente React. Cuando esté listo, reemplaza el
-   contenido de <DashboardSlot /> por <TuComponente />.
+   Componente React basado en huawei_dashboard.html. Usa Chart.js
+   (cargado como script global) y los estilos con prefijo .hd-
    ===================================================================== */
-function DashboardSlot() {
+const HD_DATA = [{"year": 1987, "kpi1": 0.1, "kpi2": 6.7, "kpi3": 23.2, "intl_sales": 0.0, "dev_markets": 0.0, "countries": 1, "rd_intensity": 0.0, "frontier_tech": 13.6, "dev_cycle_weeks": 97.3, "analyst_rating": 25.2, "coo_perception": 26.2, "brand_premium": 17.5, "org_structure": "Centralized", "revenue": 0.0055}, {"year": 1988, "kpi1": 0.1, "kpi2": 5.5, "kpi3": 24.6, "intl_sales": 0.0, "dev_markets": 0.0, "countries": 1, "rd_intensity": 0.0, "frontier_tech": 5.1, "dev_cycle_weeks": 91.2, "analyst_rating": 33.5, "coo_perception": 27.0, "brand_premium": 10.4, "org_structure": "Centralized", "revenue": 0.03}, {"year": 1989, "kpi1": 0.1, "kpi2": 18.8, "kpi3": 21.2, "intl_sales": 0.0, "dev_markets": 0.0, "countries": 1, "rd_intensity": 5.56, "frontier_tech": 10.1, "dev_cycle_weeks": 84.8, "analyst_rating": 27.1, "coo_perception": 22.1, "brand_premium": 12.5, "org_structure": "Centralized", "revenue": 0.18}, {"year": 1990, "kpi1": 0.1, "kpi2": 15.0, "kpi3": 23.5, "intl_sales": 0.0, "dev_markets": 0.0, "countries": 1, "rd_intensity": 5.0, "frontier_tech": 9.2, "dev_cycle_weeks": 93.6, "analyst_rating": 30.0, "coo_perception": 21.4, "brand_premium": 17.1, "org_structure": "Centralized", "revenue": 1.0}, {"year": 1991, "kpi1": 0.1, "kpi2": 11.9, "kpi3": 20.8, "intl_sales": 0.0, "dev_markets": 0.0, "countries": 1, "rd_intensity": 3.83, "frontier_tech": 7.2, "dev_cycle_weeks": 94.8, "analyst_rating": 22.6, "coo_perception": 20.1, "brand_premium": 19.0, "org_structure": "Centralized", "revenue": 2.61}, {"year": 1992, "kpi1": 0.1, "kpi2": 19.0, "kpi3": 20.7, "intl_sales": 0.0, "dev_markets": 0.0, "countries": 1, "rd_intensity": 6.48, "frontier_tech": 6.2, "dev_cycle_weeks": 84.8, "analyst_rating": 22.9, "coo_perception": 23.5, "brand_premium": 15.1, "org_structure": "Centralized", "revenue": 6.79}, {"year": 1993, "kpi1": 0.1, "kpi2": 18.4, "kpi3": 20.6, "intl_sales": 0.0, "dev_markets": 0.0, "countries": 1, "rd_intensity": 6.11, "frontier_tech": 8.4, "dev_cycle_weeks": 87.6, "analyst_rating": 20.6, "coo_perception": 25.9, "brand_premium": 15.3, "org_structure": "Centralized", "revenue": 17.68}, {"year": 1994, "kpi1": 0.1, "kpi2": 23.2, "kpi3": 19.5, "intl_sales": 0.0, "dev_markets": 0.0, "countries": 1, "rd_intensity": 8.18, "frontier_tech": 14.4, "dev_cycle_weeks": 90.7, "analyst_rating": 22.5, "coo_perception": 23.9, "brand_premium": 11.1, "org_structure": "Centralized", "revenue": 46.06}, {"year": 1995, "kpi1": 0.1, "kpi2": 21.5, "kpi3": 21.4, "intl_sales": 0.0, "dev_markets": 0.0, "countries": 1, "rd_intensity": 8.32, "frontier_tech": 8.2, "dev_cycle_weeks": 89.9, "analyst_rating": 24.2, "coo_perception": 24.4, "brand_premium": 14.5, "org_structure": "Centralized", "revenue": 120.0}, {"year": 1996, "kpi1": 1.7, "kpi2": 22.1, "kpi3": 32.6, "intl_sales": 3.99, "dev_markets": 0.0, "countries": 1, "rd_intensity": 6.22, "frontier_tech": 19.0, "dev_cycle_weeks": 88.3, "analyst_rating": 38.4, "coo_perception": 34.8, "brand_premium": 22.5, "org_structure": "Centralized", "revenue": 309.84}, {"year": 1997, "kpi1": 3.4, "kpi2": 26.7, "kpi3": 35.1, "intl_sales": 4.7, "dev_markets": 3.14, "countries": 2, "rd_intensity": 7.08, "frontier_tech": 23.8, "dev_cycle_weeks": 83.2, "analyst_rating": 41.4, "coo_perception": 37.4, "brand_premium": 24.5, "org_structure": "Centralized", "revenue": 800.0}, {"year": 1998, "kpi1": 5.6, "kpi2": 33.2, "kpi3": 38.6, "intl_sales": 6.11, "dev_markets": 7.07, "countries": 3, "rd_intensity": 9.46, "frontier_tech": 26.2, "dev_cycle_weeks": 78.2, "analyst_rating": 44.7, "coo_perception": 42.1, "brand_premium": 26.8, "org_structure": "Centralized", "revenue": 1214.64}, {"year": 1999, "kpi1": 7.8, "kpi2": 42.6, "kpi3": 43.6, "intl_sales": 11.95, "dev_markets": 6.26, "countries": 4, "rd_intensity": 12.45, "frontier_tech": 34.8, "dev_cycle_weeks": 74.0, "analyst_rating": 50.7, "coo_perception": 48.3, "brand_premium": 29.5, "org_structure": "Centralized", "revenue": 1844.17}, {"year": 2000, "kpi1": 11.7, "kpi2": 43.8, "kpi3": 44.6, "intl_sales": 11.79, "dev_markets": 15.96, "countries": 5, "rd_intensity": 11.49, "frontier_tech": 39.6, "dev_cycle_weeks": 69.9, "analyst_rating": 52.1, "coo_perception": 49.0, "brand_premium": 30.1, "org_structure": "Centralized", "revenue": 2800.0}, {"year": 2001, "kpi1": 16.9, "kpi2": 36.6, "kpi3": 49.8, "intl_sales": 25.87, "dev_markets": 14.7, "countries": 6, "rd_intensity": 6.8, "frontier_tech": 36.0, "dev_cycle_weeks": 62.2, "analyst_rating": 57.4, "coo_perception": 55.5, "brand_premium": 33.9, "org_structure": "Transitional", "revenue": 5000.0}, {"year": 2002, "kpi1": 17.1, "kpi2": 46.7, "kpi3": 54.8, "intl_sales": 25.07, "dev_markets": 15.35, "countries": 8, "rd_intensity": 10.32, "frontier_tech": 43.0, "dev_cycle_weeks": 56.9, "analyst_rating": 63.0, "coo_perception": 63.1, "brand_premium": 35.5, "org_structure": "Transitional", "revenue": 6708.2}, {"year": 2003, "kpi1": 23.6, "kpi2": 45.6, "kpi3": 60.3, "intl_sales": 29.79, "dev_markets": 26.37, "countries": 10, "rd_intensity": 9.25, "frontier_tech": 43.8, "dev_cycle_weeks": 55.2, "analyst_rating": 70.0, "coo_perception": 69.2, "brand_premium": 38.6, "org_structure": "Transitional", "revenue": 9000.0}, {"year": 2004, "kpi1": 28.2, "kpi2": 51.6, "kpi3": 54.7, "intl_sales": 37.54, "dev_markets": 29.5, "countries": 12, "rd_intensity": 10.24, "frontier_tech": 47.1, "dev_cycle_weeks": 44.4, "analyst_rating": 62.7, "coo_perception": 59.6, "brand_premium": 39.1, "org_structure": "Transitional", "revenue": 12000.0}, {"year": 2005, "kpi1": 31.5, "kpi2": 51.9, "kpi3": 70.6, "intl_sales": 39.74, "dev_markets": 34.81, "countries": 14, "rd_intensity": 10.3, "frontier_tech": 45.7, "dev_cycle_weeks": 41.9, "analyst_rating": 81.0, "coo_perception": 78.5, "brand_premium": 48.9, "org_structure": "Transitional", "revenue": 16000.0}, {"year": 2006, "kpi1": 34.7, "kpi2": 65.2, "kpi3": 59.2, "intl_sales": 43.96, "dev_markets": 35.98, "countries": 23, "rd_intensity": 15.92, "frontier_tech": 54.2, "dev_cycle_weeks": 40.4, "analyst_rating": 67.6, "coo_perception": 63.0, "brand_premium": 44.2, "org_structure": "Transitional", "revenue": 22000.0}, {"year": 2007, "kpi1": 39.3, "kpi2": 66.3, "kpi3": 61.8, "intl_sales": 47.73, "dev_markets": 41.42, "countries": 31, "rd_intensity": 15.55, "frontier_tech": 58.0, "dev_cycle_weeks": 39.0, "analyst_rating": 69.2, "coo_perception": 65.0, "brand_premium": 48.7, "org_structure": "Transitional", "revenue": 29664.79}, {"year": 2008, "kpi1": 43.7, "kpi2": 69.0, "kpi3": 66.2, "intl_sales": 52.0, "dev_markets": 45.72, "countries": 39, "rd_intensity": 16.55, "frontier_tech": 59.3, "dev_cycle_weeks": 37.1, "analyst_rating": 73.6, "coo_perception": 68.8, "brand_premium": 53.7, "org_structure": "Transitional", "revenue": 40000.0}, {"year": 2009, "kpi1": 46.5, "kpi2": 68.1, "kpi3": 70.2, "intl_sales": 55.5, "dev_markets": 46.98, "countries": 47, "rd_intensity": 14.89, "frontier_tech": 64.2, "dev_cycle_weeks": 36.0, "analyst_rating": 76.7, "coo_perception": 75.8, "brand_premium": 56.0, "org_structure": "Transitional", "revenue": 48000.0}, {"year": 2010, "kpi1": 49.5, "kpi2": 69.5, "kpi3": 69.4, "intl_sales": 60.36, "dev_markets": 47.15, "countries": 55, "rd_intensity": 13.48, "frontier_tech": 74.1, "dev_cycle_weeks": 34.9, "analyst_rating": 75.3, "coo_perception": 74.9, "brand_premium": 55.9, "org_structure": "Transitional", "revenue": 55856.96}, {"year": 2011, "kpi1": 54.2, "kpi2": 73.1, "kpi3": 73.6, "intl_sales": 66.87, "dev_markets": 48.92, "countries": 67, "rd_intensity": 15.85, "frontier_tech": 70.9, "dev_cycle_weeks": 32.8, "analyst_rating": 78.7, "coo_perception": 75.9, "brand_premium": 64.4, "org_structure": "Decentralized", "revenue": 65000.0}, {"year": 2012, "kpi1": 53.8, "kpi2": 74.6, "kpi3": 79.5, "intl_sales": 61.49, "dev_markets": 49.76, "countries": 79, "rd_intensity": 16.04, "frontier_tech": 73.0, "dev_cycle_weeks": 31.3, "analyst_rating": 84.6, "coo_perception": 82.9, "brand_premium": 69.2, "org_structure": "Decentralized", "revenue": 72391.07}, {"year": 2013, "kpi1": 56.8, "kpi2": 76.3, "kpi3": 81.5, "intl_sales": 63.81, "dev_markets": 51.34, "countries": 91, "rd_intensity": 15.25, "frontier_tech": 81.8, "dev_cycle_weeks": 31.1, "analyst_rating": 87.0, "coo_perception": 79.8, "brand_premium": 75.9, "org_structure": "Decentralized", "revenue": 80622.58}, {"year": 2014, "kpi1": 59.4, "kpi2": 83.7, "kpi3": 80.1, "intl_sales": 64.3, "dev_markets": 53.91, "countries": 103, "rd_intensity": 16.08, "frontier_tech": 94.7, "dev_cycle_weeks": 26.3, "analyst_rating": 84.7, "coo_perception": 79.4, "brand_premium": 74.8, "org_structure": "Decentralized", "revenue": 89790.08}, {"year": 2015, "kpi1": 61.5, "kpi2": 78.6, "kpi3": 81.4, "intl_sales": 65.4, "dev_markets": 54.61, "countries": 115, "rd_intensity": 14.98, "frontier_tech": 84.8, "dev_cycle_weeks": 25.3, "analyst_rating": 87.1, "coo_perception": 82.6, "brand_premium": 72.6, "org_structure": "Decentralized", "revenue": 100000.0}, {"year": 2016, "kpi1": 66.1, "kpi2": 83.7, "kpi3": 79.1, "intl_sales": 69.15, "dev_markets": 58.7, "countries": 127, "rd_intensity": 17.09, "frontier_tech": 87.3, "dev_cycle_weeks": 23.4, "analyst_rating": 86.4, "coo_perception": 81.1, "brand_premium": 67.3, "org_structure": "Decentralized", "revenue": 105311.62}, {"year": 2017, "kpi1": 68.4, "kpi2": 84.4, "kpi3": 80.8, "intl_sales": 70.34, "dev_markets": 59.84, "countries": 139, "rd_intensity": 16.71, "frontier_tech": 90.0, "dev_cycle_weeks": 22.1, "analyst_rating": 88.0, "coo_perception": 82.3, "brand_premium": 69.7, "org_structure": "Decentralized", "revenue": 110905.37}, {"year": 2018, "kpi1": 71.0, "kpi2": 81.7, "kpi3": 82.9, "intl_sales": 72.09, "dev_markets": 60.9, "countries": 151, "rd_intensity": 15.1, "frontier_tech": 89.4, "dev_cycle_weeks": 21.0, "analyst_rating": 89.9, "coo_perception": 83.4, "brand_premium": 72.9, "org_structure": "Decentralized", "revenue": 116796.23}, {"year": 2019, "kpi1": 71.6, "kpi2": 84.4, "kpi3": 84.8, "intl_sales": 70.92, "dev_markets": 60.14, "countries": 163, "rd_intensity": 15.43, "frontier_tech": 94.8, "dev_cycle_weeks": 20.0, "analyst_rating": 90.5, "coo_perception": 86.6, "brand_premium": 75.3, "org_structure": "Decentralized", "revenue": 123000.0}, {"year": 2020, "kpi1": 73.6, "kpi2": 83.1, "kpi3": 85.7, "intl_sales": 73.0, "dev_markets": 61.02, "countries": 175, "rd_intensity": 15.13, "frontier_tech": 93.7, "dev_cycle_weeks": 21.4, "analyst_rating": 92.3, "coo_perception": 85.9, "brand_premium": 76.8, "org_structure": "Decentralized", "revenue": 136000.0}];
+
+const HD_KPIS = [
+  { key: "kpi1", code: "IDEM", name: "KPI 1 · IDEM", full: "Índice de Diversificación y Expansión de Mercado",
+    color: "#00a383", goal: 82, horizon: "3 años", owner: "Estrategia Corporativa",
+    formula: "0.4×Ventas Intl. + 0.4×Ventas Mdos. Desarrollados + 0.2×min(100, Países÷170×100)" },
+  { key: "kpi2", code: "IAIT", name: "KPI 2 · IAIT", full: "Índice de Agilidad de Innovación Tecnológica",
+    color: "#2f6fd6", goal: 85, horizon: "2 años sostenido", owner: "I+D / CTO",
+    formula: "0.35×min(100, Intensidad I+D÷20×100) + 0.35×Índice Tec. Frontera + 0.30×Agilidad de Ciclo" },
+  { key: "kpi3", code: "ICEPM", name: "KPI 3 · ICEPM", full: "Índice de Claridad Estratégica y Percepción de Marca",
+    color: "#7a3ea1", goal: 90, horizon: "2 años", owner: "Comunicación Corporativa / RI",
+    formula: "0.4×Rating Analistas + 0.3×Percepción País de Origen + 0.3×Índice Prima de Marca" },
+];
+
+const HD_ORG = { Centralized: "Centralizada", Transitional: "Transicional", Decentralized: "Descentralizada" };
+
+function hdSemaforo(v) {
+  if (v <= 40) return { label: "Rojo", cls: "rojo", color: "#d9362d" };
+  if (v <= 70) return { label: "Amarillo", cls: "amarillo", color: "#e5a221" };
+  return { label: "Verde", cls: "verde", color: "#1f9d55" };
+}
+
+const hdBands = {
+  id: "semaforoBands",
+  beforeDraw(chart) {
+    const { ctx, chartArea, scales } = chart;
+    if (!chartArea) return;
+    const y = scales.y;
+    [[0, 40, "rgba(217,54,45,0.06)"], [40, 70, "rgba(229,162,33,0.08)"], [70, 100, "rgba(31,157,85,0.08)"]].forEach(([a, b, c]) => {
+      const top = y.getPixelForValue(b), bottom = y.getPixelForValue(a);
+      ctx.save(); ctx.fillStyle = c;
+      ctx.fillRect(chartArea.left, top, chartArea.right - chartArea.left, bottom - top);
+      ctx.restore();
+    });
+  },
+};
+
+/* Crea o recrea un gráfico de Chart.js sobre un <canvas> */
+function useChart(ref, build, deps) {
+  useEffect(() => {
+    if (!ref.current || !window.Chart) return;
+    const chart = new window.Chart(ref.current.getContext("2d"), build());
+    return () => chart.destroy();
+  }, deps);
+}
+
+function hdLineOpts(extraScales, legendSize = 10) {
+  return {
+    responsive: true, maintainAspectRatio: false,
+    interaction: { mode: "index", intersect: false },
+    plugins: { legend: { position: "bottom", labels: { boxWidth: 10, boxHeight: 10, font: { size: legendSize } } } },
+    scales: extraScales,
+  };
+}
+
+function HuaweiDashboard() {
+  const years = HD_DATA.map(d => d.year);
+  const [from, setFrom] = useState(years[0]);
+  const [to, setTo] = useState(years[years.length - 1]);
+  const [org, setOrg] = useState("all");
+  const [sort, setSort] = useState({ key: "year", dir: 1 });
+
+  const rows = HD_DATA.filter(d => d.year >= from && d.year <= to && (org === "all" || d.org_structure === org));
+  const labels = rows.map(d => d.year);
+  const latest = rows[rows.length - 1];
+  const prev = rows.length > 1 ? rows[rows.length - 2] : null;
+  const deps = [from, to, org];
+
+  const trendRef = React.useRef(null), d1Ref = React.useRef(null), d2Ref = React.useRef(null), d3Ref = React.useRef(null);
+
+  useChart(trendRef, () => ({
+    type: "line",
+    data: { labels, datasets: HD_KPIS.map(k => ({
+      label: `${k.code} (${k.key.toUpperCase()}) — Meta ${k.goal}`, data: rows.map(d => d[k.key]),
+      borderColor: k.color, backgroundColor: k.color, borderWidth: 2.5, tension: 0.3, pointRadius: 2, pointHoverRadius: 6,
+    })) },
+    options: {
+      ...hdLineOpts({ y: { min: 0, max: 100, title: { display: true, text: "Índice (0–100)" } }, x: { title: { display: true, text: "Año" } } }, 11),
+      plugins: {
+        legend: { position: "bottom", labels: { boxWidth: 12, boxHeight: 12, font: { size: 11 } } },
+        tooltip: { callbacks: { label: c => `${c.dataset.label.split(" —")[0]}: ${c.parsed.y.toFixed(1)}` } },
+      },
+    },
+    plugins: [hdBands],
+  }), deps);
+
+  useChart(d1Ref, () => ({
+    type: "line",
+    data: { labels, datasets: [
+      { label: "Ventas Intl. %", data: rows.map(d => d.intl_sales), borderColor: "#00a383", borderWidth: 2, pointRadius: 0, tension: 0.3, yAxisID: "y" },
+      { label: "Mdos. Desarrollados %", data: rows.map(d => d.dev_markets), borderColor: "#7fdcc6", borderWidth: 2, pointRadius: 0, tension: 0.3, yAxisID: "y" },
+      { label: "Países (n)", data: rows.map(d => d.countries), borderColor: "#0a2540", borderDash: [4, 3], borderWidth: 1.5, pointRadius: 0, tension: 0.3, yAxisID: "y1" },
+    ] },
+    options: hdLineOpts({ y: { position: "left", title: { display: true, text: "%", font: { size: 10 } } }, y1: { position: "right", grid: { drawOnChartArea: false }, title: { display: true, text: "Países", font: { size: 10 } } } }),
+  }), deps);
+
+  useChart(d2Ref, () => ({
+    type: "line",
+    data: { labels, datasets: [
+      { label: "Intensidad I+D %", data: rows.map(d => d.rd_intensity), borderColor: "#2f6fd6", borderWidth: 2, pointRadius: 0, tension: 0.3, yAxisID: "y" },
+      { label: "Índice Tec. Frontera", data: rows.map(d => d.frontier_tech), borderColor: "#8db4ef", borderWidth: 2, pointRadius: 0, tension: 0.3, yAxisID: "y" },
+      { label: "Ciclo Desarrollo (sem)", data: rows.map(d => d.dev_cycle_weeks), borderColor: "#0a2540", borderDash: [4, 3], borderWidth: 1.5, pointRadius: 0, tension: 0.3, yAxisID: "y1" },
+    ] },
+    options: hdLineOpts({ y: { position: "left", title: { display: true, text: "Índice/%", font: { size: 10 } } }, y1: { position: "right", grid: { drawOnChartArea: false }, title: { display: true, text: "Semanas", font: { size: 10 } } } }),
+  }), deps);
+
+  useChart(d3Ref, () => ({
+    type: "line",
+    data: { labels, datasets: [
+      { label: "Rating Analistas", data: rows.map(d => d.analyst_rating), borderColor: "#7a3ea1", borderWidth: 2, pointRadius: 0, tension: 0.3 },
+      { label: "Percepción País Origen", data: rows.map(d => d.coo_perception), borderColor: "#b98cd6", borderWidth: 2, pointRadius: 0, tension: 0.3 },
+      { label: "Prima de Marca", data: rows.map(d => d.brand_premium), borderColor: "#0a2540", borderWidth: 2, pointRadius: 0, tension: 0.3 },
+    ] },
+    options: hdLineOpts({ y: { min: 0, max: 100, title: { display: true, text: "Índice (0–100)", font: { size: 10 } } } }),
+  }), deps);
+
+  const sorted = rows.slice().sort((a, b) => {
+    const va = a[sort.key], vb = b[sort.key];
+    return (typeof va === "string" ? va.localeCompare(vb) : va - vb) * sort.dir;
+  });
+  const clickSort = key => setSort(s => (s.key === key ? { key, dir: -s.dir } : { key, dir: 1 }));
+  const cols = [
+    ["year", "Año"], ["kpi1", "IDEM (KPI1)"], ["kpi2", "IAIT (KPI2)"], ["kpi3", "ICEPM (KPI3)"],
+    ["intl_sales", "Ventas Intl. %"], ["dev_markets", "Mdos. Desarrollados %"], ["countries", "Países"],
+    ["rd_intensity", "Intensidad I+D %"], ["dev_cycle_weeks", "Ciclo Desarrollo (sem)"],
+    ["analyst_rating", "Rating Analistas"], ["org_structure", "Estructura"],
+  ];
+
+  const onFrom = e => { const v = +e.target.value; setFrom(v); if (v > to) setTo(v); };
+  const onTo = e => { const v = +e.target.value; setTo(v); if (v < from) setFrom(v); };
+
   return (
-    <div className="dash-slot" role="region" aria-label="Espacio reservado para el dashboard">
-      <div className="dash-slot-inner">
-        <div className="dash-slot-icon">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+    <div className="hd">
+      <header className="hd-header">
+        <div className="hd-title">
+          <span className="hd-eyebrow">Tablero de KPIs · Huawei</span>
+          <h2>Alineamiento Dinámico</h2>
+          <p>Monitoreo de los tres indicadores SMART del pivote de Alineamiento Dinámico (Barahona &amp; Murillo, INCAE 2024): diversificación de mercado, agilidad de innovación tecnológica y claridad estratégica / percepción de marca. Serie histórica 1987–2020.</p>
         </div>
-        <h2>El componente del dashboard irá aquí</h2>
-        <p>Este espacio está reservado para el componente React del dashboard. Ocupa el ancho completo del contenido y se adapta a móvil.</p>
-        <code>&lt;DashboardSlot /&gt;</code>
-      </div>
+        <div className="hd-meta">
+          <span className="hd-badge">Último dato: {latest ? latest.year : "—"}</span>
+          <div className="hd-filters">
+            <label className="hd-filter"><span>Desde</span>
+              <select id="hd-from" value={from} onChange={onFrom}>{years.map(y => <option key={y} value={y}>{y}</option>)}</select>
+            </label>
+            <label className="hd-filter"><span>Hasta</span>
+              <select id="hd-to" value={to} onChange={onTo}>{years.map(y => <option key={y} value={y}>{y}</option>)}</select>
+            </label>
+            <label className="hd-filter"><span>Estructura</span>
+              <select id="hd-org" value={org} onChange={e => setOrg(e.target.value)}>
+                <option value="all">Todas</option>
+                <option value="Centralized">Centralizada</option>
+                <option value="Transitional">Transicional</option>
+                <option value="Decentralized">Descentralizada</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </header>
+
+      {/* Tarjetas KPI */}
+      <section className="hd-kpis">
+        {!latest ? <p className="hd-empty">Sin datos para el filtro seleccionado.</p> : HD_KPIS.map(k => {
+          const v = latest[k.key], s = hdSemaforo(v), delta = prev ? v - prev[k.key] : null;
+          return (
+            <div className="hd-kpi" key={k.key} style={{ "--k": k.color }}>
+              <div className="hd-kpi-label">{k.name}</div>
+              <div className="hd-kpi-name">{k.full}</div>
+              <div className="hd-kpi-value"><strong>{v.toFixed(1)}</strong><span>/ 100 · {latest.year}</span></div>
+              <div className="hd-kpi-status">
+                <span className={"hd-sem " + s.cls}>● {s.label}</span>
+                {delta !== null && <span className={"hd-delta " + (delta >= 0 ? "up" : "down")}>{delta >= 0 ? "▲" : "▼"} {Math.abs(delta).toFixed(1)} pts vs. año anterior</span>}
+              </div>
+              <div className="hd-goal">Meta: <b>≥ {k.goal} pts</b> en {k.horizon}</div>
+              <div className="hd-track"><div style={{ width: Math.min(100, (v / k.goal) * 100) + "%", background: k.color }}></div></div>
+              <div className="hd-owner">Propietario: {k.owner}<br /><span>Fórmula: {k.formula}</span></div>
+            </div>
+          );
+        })}
+      </section>
+
+      {/* Tendencia + semáforo */}
+      <section className="hd-row hd-row-main">
+        <div className="hd-panel">
+          <h3>Evolución de los 3 KPIs (0–100)</h3>
+          <div className="hd-sub">IDEM (mercado) · IAIT (innovación) · ICEPM (marca/estrategia), con bandas de semáforo de fondo</div>
+          <div className="hd-canvas hd-canvas-lg"><canvas ref={trendRef} aria-label="Evolución de los tres KPIs" role="img"></canvas></div>
+        </div>
+        <div className="hd-panel">
+          <h3>Semaforización (escala 0–100)</h3>
+          <div className="hd-legend">
+            <div><i style={{ background: "#d9362d" }}></i><p><b>0–40 · Rojo, base/emergente</b><br />Fase de supervivencia y expansión inicial (1987–1995 en el caso). Requiere intervención estratégica inmediata.</p></div>
+            <div><i style={{ background: "#e5a221" }}></i><p><b>41–70 · Amarillo, en desarrollo</b><br />Internacionalización y transformación gerencial (1996–2011). Monitorear tendencia trimestral.</p></div>
+            <div><i style={{ background: "#1f9d55" }}></i><p><b>71–100 · Verde, maduro/óptimo</b><br />Liderazgo global consolidado (2012–2020). Mantener y proteger mediante revisión continua.</p></div>
+            <div className="hd-alert"><p><b>Alerta temprana</b><br />Una caída sostenida durante 2 trimestres consecutivos en cualquier índice activa una revisión de desalineación estratégica.</p></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Drivers */}
+      <section className="hd-row hd-row-3">
+        <div className="hd-panel">
+          <h3>KPI 1 · Drivers de mercado</h3>
+          <div className="hd-sub">% ventas internacionales, mercados desarrollados y países con presencia</div>
+          <div className="hd-canvas"><canvas ref={d1Ref} aria-label="Drivers de mercado" role="img"></canvas></div>
+        </div>
+        <div className="hd-panel">
+          <h3>KPI 2 · Drivers de innovación</h3>
+          <div className="hd-sub">Intensidad I+D, índice de tecnología de frontera y ciclo de desarrollo (semanas)</div>
+          <div className="hd-canvas"><canvas ref={d2Ref} aria-label="Drivers de innovación" role="img"></canvas></div>
+        </div>
+        <div className="hd-panel">
+          <h3>KPI 3 · Drivers de marca/estrategia</h3>
+          <div className="hd-sub">Calificación de analistas, percepción de país de origen y prima de marca</div>
+          <div className="hd-canvas"><canvas ref={d3Ref} aria-label="Drivers de marca" role="img"></canvas></div>
+        </div>
+      </section>
+
+      {/* Tabla */}
+      <section className="hd-panel">
+        <h3>Detalle anual</h3>
+        <div className="hd-sub">Toca un encabezado para ordenar. La tabla respeta los filtros de años y estructura.</div>
+        <div className="hd-table-wrap">
+          <table className="hd-table">
+            <thead><tr>{cols.map(([k, l]) => (
+              <th key={k} onClick={() => clickSort(k)} aria-sort={sort.key === k ? (sort.dir > 0 ? "ascending" : "descending") : "none"}>
+                {l}{sort.key === k ? (sort.dir > 0 ? " ↑" : " ↓") : ""}
+              </th>))}</tr></thead>
+            <tbody>{sorted.map(d => (
+              <tr key={d.year}>
+                <td>{d.year}</td>
+                {["kpi1", "kpi2", "kpi3"].map(k => (
+                  <td key={k}><span className="hd-pill" style={{ background: hdSemaforo(d[k]).color }}></span>{d[k].toFixed(1)}</td>
+                ))}
+                <td>{d.intl_sales.toFixed(1)}%</td>
+                <td>{d.dev_markets.toFixed(1)}%</td>
+                <td>{d.countries}</td>
+                <td>{d.rd_intensity.toFixed(1)}%</td>
+                <td>{d.dev_cycle_weeks.toFixed(1)}</td>
+                <td>{d.analyst_rating.toFixed(1)}</td>
+                <td>{HD_ORG[d.org_structure] || d.org_structure}</td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer className="hd-foot">
+        Fuente: HuaweiData_with_KPIs.csv (1987–2020) · Metodología: KPIs_Alineamiento_Dinamico_Huawei · Cadencia sugerida: revisión trimestral por el equipo de liderazgo, escalando a la Junta Directiva vía el Comité de Estrategia.
+      </footer>
     </div>
   );
+}
+
+if (window.Chart) {
+  Chart.defaults.font.family = '"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
+  Chart.defaults.color = "#51657a";
+  Chart.defaults.borderColor = "#e8eef4";
 }
 
 /* ---------- Datos ---------- */
 const PROJECTS = [
   {
     id: "dashboard",
-    title: "TITULO_DEL_PRIMER_DASHBOARD",
+    title: "Caso Dashboard HUAWEI",
     cat: "Dashboard",
-    summary: "Dashboard interactivo con indicadores clave de negocio y análisis asistido por IA.",
-    tags: ["React", "Analítica", "IA"],
+    summary: "Tablero de KPIs de Alineamiento Dinámico para Huawei: mercado, innovación y marca, con serie histórica 1987–2020.",
+    tags: ["React", "Chart.js", "KPIs"],
     featured: true,
-    client: "Por definir", role: "Diseño y desarrollo", year: "2026",
-    challenge: "Reunir en una sola vista los indicadores que el equipo consultaba en varias herramientas y reportes separados.",
-    results: ["Vista unificada de métricas clave", "Filtros por periodo y segmento", "Lectura rápida en escritorio y móvil"],
+    client: "Caso Huawei · INCAE 2024", role: "Diseño y desarrollo", year: "2026",
+    challenge: "Traducir el pivote estratégico de Alineamiento Dinámico en tres indicadores SMART medibles y darles seguimiento con un semáforo claro para el equipo de liderazgo.",
+    results: ["Tres KPIs compuestos con metas y responsables", "Semaforización 0–100 y alerta temprana", "Filtros por años y estructura organizacional, con tabla ordenable"],
   },
   {
     id: "asistente-ventas",
@@ -568,7 +900,7 @@ function ProjectDetail({ p }) {
       </div>
       <div className="wrap">
         {p.id === "dashboard"
-          ? <DashboardSlot />
+          ? <HuaweiDashboard />
           : <div className="card-cover" style={{borderRadius: 18, marginBottom: 40}}><Cover i={i} /></div>}
         <div className="detail-body">
           <div>
